@@ -1,0 +1,67 @@
+//CLASE 241 NAVIAGATION E ICONOS
+yarn add @react-navigation/native
+yarn add react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view
+
+yarn add @react-navigation/stack
+
+npx pod-install
+
+importo NavigationContainer
+
+Envolver App con NavigationContainer
+
+const App = () => {
+  return (
+     <NavigationContainer>
+      <Navigator />
+    </NavigationContainer>
+  );
+};
+
+creo Navigator
+
+y lo utilizo en App
+
+ICONOS
+
+
+https://github.com/oblador/react-native-vector-icons
+
+yarn add react-native-vector-icons
+yarn add -D @types/react-native-vector-icons
+
+1 ANDROID
+
+android/app/build.gradle
+
+al inicio del archivo (despues de las importaciones)
+
+project.ext.vectoricons = [
+    iconFontNames: [ 'Ionicons.ttf' ] // Name of the font files you want to copy
+]
+
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+
+2. iOS
+abrir en Xcode --> ios/nombreProyecto.xcworkspace
+
+abrir node_modules/react-native-vector-icons/Fonts
+
+en Xcode
+
+clic derecho new group llamado Fonts
+
+arrastro las fuentes que voy a utilizar ej Ionicons.ttf
+
+check copy items if needed ----> Aceptar
+
+Abro como codigo info.plist
+
+pego antes de termina la etiqueta </dict>
+
+<key>UIAppFonts</key>
+<array>
+  <string>Ionicons.ttf</string>
+</array>
+
+npx pod-install
