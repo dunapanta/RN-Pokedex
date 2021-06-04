@@ -65,3 +65,20 @@ pego antes de termina la etiqueta </dict>
 </array>
 
 npx pod-install
+
+
+//Agregar Tipos a la llamada de la api
+
+creo carpeta interafces
+pokemonInterfaces.tsx
+
+En PostMan hago peticon y copio la respesta
+https://pokeapi.co/api/v2/pokemon?limit=40
+
+se puede hacer desde http://quicktype.io/ o con la extension
+
+en VS tengo que estar situado en el archivo
+abro View -> Command Palette
+seleciono Paste JSON a Code
+ingreso typescript
+ingreso el nombre que tendra la respuesta
