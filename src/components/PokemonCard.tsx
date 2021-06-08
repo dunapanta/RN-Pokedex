@@ -1,4 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import {useNavigation} from '@react-navigation/core';
+import {StackScreenProps} from '@react-navigation/stack';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -20,11 +22,16 @@ const windowWith = Dimensions.get('window').width;
 
 export const PokemonCard = ({pokemon}: Props) => {
   const [pokemonColor, setPokemonColor] = useState('rgb(187,187,187)');
+  const {navigate} = useNavigation();
+  const isMounted = useRef(true);
 
   const extractColor = async () => {
     const colors = await ImageColors.getColors(pokemon.picture, {
       fallback: 'rgb(187,187,187)',
     });
+    //Si esta desmontado no se tiene que ejecutar lo de los colores porque da un warning de perdida de memoria
+    if (!isMounted) return;
+
     if (colors.platform === 'android') {
       setPokemonColor(colors.dominant || 'rgb(187,187,187)');
     } else {
@@ -34,10 +41,21 @@ export const PokemonCard = ({pokemon}: Props) => {
 
   useEffect(() => {
     extractColor();
+
+    return () => {
+      isMounted.current = false;
+    };
   }, [pokemon]);
 
   return (
-    <TouchableOpacity activeOpacity={0.8}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={() =>
+        navigate('PokemonScreen', {
+          simplePokemon: pokemon,
+          color: pokemonColor,
+        })
+      }>
       <View
         style={{
           ...styles.cardContainer,
