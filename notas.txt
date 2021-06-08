@@ -82,3 +82,9 @@ abro View -> Command Palette
 seleciono Paste JSON a Code
 ingreso typescript
 ingreso el nombre que tendra la respuesta
+
+// CLASE 250 Color tarjetas Pokemon 
+
+yarn add react-native-image-colors
+
+npx pod-install
