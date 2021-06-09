@@ -10,6 +10,7 @@ import {SimplePokemon} from '../interfaces/pokemonInterfaces';
 import {RootStackParms} from '../navigation/Navigator';
 import {globalStyles} from '../theme/appTheme';
 import {usePokemon} from '../hooks/usePokemon';
+import {PokemonDetails} from '../components/PokemonDetails';
 
 interface Props extends StackScreenProps<RootStackParms, 'PokemonScreen'> {
   simplePokemon: SimplePokemon;
@@ -56,9 +57,13 @@ export const PokemonScreen = ({navigation, route}: Props) => {
       </View>
 
       {/* Detalles */}
-      <View style={styles.loading}>
-        <ActivityIndicator color={simplePokemon.color || 'black'} size={50} />
-      </View>
+      {isloading ? (
+        <View style={styles.loading}>
+          <ActivityIndicator color={simplePokemon.color || 'black'} size={50} />
+        </View>
+      ) : (
+        <PokemonDetails pokemon={pokemonFull} />
+      )}
     </View>
   );
 };
