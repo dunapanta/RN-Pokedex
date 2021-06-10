@@ -1,15 +1,9 @@
 import {DrawerScreenProps} from '@react-navigation/drawer';
 import React from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Dimensions, FlatList, Text, TouchableOpacity, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {Loading} from '../components/Loading';
 import {PokemonCard} from '../components/PokemonCard';
 import {SearchInput} from '../components/SearchInput';
 import {usePokemonSearch} from '../hooks/usePokemonSearch';
@@ -17,21 +11,18 @@ import {globalStyles} from '../theme/appTheme';
 
 interface Props extends DrawerScreenProps<any, any> {}
 
+//const screenWidth = Dimensions.get('window').width;
+
 export const SearchScreen = ({navigation}: Props) => {
   const {top} = useSafeAreaInsets();
   const {isFetching, simplePokemonList} = usePokemonSearch();
 
   if (isFetching) {
-    return (
-      <View style={styles.loadingStyle}>
-        <ActivityIndicator size={50} color="grey" />
-        <Text>Cargando...</Text>
-      </View>
-    );
+    return <Loading />;
   }
 
   return (
-    <View style={{flex: 1, marginTop: top + 5}}>
+    <View style={{flex: 1, marginTop: 5}}>
       <View
         style={{
           flexDirection: 'row',
@@ -66,11 +57,3 @@ export const SearchScreen = ({navigation}: Props) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  loadingStyle: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
