@@ -1,5 +1,5 @@
 import {DrawerScreenProps} from '@react-navigation/drawer';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Dimensions, FlatList, Text, TouchableOpacity, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -7,6 +7,7 @@ import {Loading} from '../components/Loading';
 import {PokemonCard} from '../components/PokemonCard';
 import {SearchInput} from '../components/SearchInput';
 import {usePokemonSearch} from '../hooks/usePokemonSearch';
+import {SimplePokemon} from '../interfaces/pokemonInterfaces';
 import {globalStyles} from '../theme/appTheme';
 
 interface Props extends DrawerScreenProps<any, any> {}
@@ -16,6 +17,20 @@ interface Props extends DrawerScreenProps<any, any> {}
 export const SearchScreen = ({navigation}: Props) => {
   const {top} = useSafeAreaInsets();
   const {isFetching, simplePokemonList} = usePokemonSearch();
+  const [term, setTerm] = useState('');
+  const [pokemonFiltred, setPokemonFiltred] = useState<SimplePokemon[]>([]);
+
+  useEffect(() => {
+    if (term.length === 0) {
+      return setPokemonFiltred([]);
+    }
+
+    setPokemonFiltred(
+      simplePokemonList.filter(pokemon =>
+        pokemon.name.toLocaleLowerCase().includes(term.toLowerCase()),
+      ),
+    );
+  }, [term]);
 
   if (isFetching) {
     return <Loading />;
@@ -43,10 +58,10 @@ export const SearchScreen = ({navigation}: Props) => {
         </TouchableOpacity>
       </View>
 
-      <SearchInput />
+      <SearchInput onDebounce={value => setTerm(value)} />
 
       <FlatList
-        data={simplePokemonList}
+        data={pokemonFiltred}
         keyExtractor={pokemon => pokemon.id}
         showsVerticalScrollIndicator={false}
         numColumns={2}
