@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -8,16 +8,27 @@ import {
   ViewStyle,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {useDebounce} from '../hooks/useDebounce';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
 }
 
 export const SearchInput = ({style}: Props) => {
+  const [text, setText] = useState('');
+
+  const debouncedValue = useDebounce(text);
+
+  useEffect(() => {
+    console.log(debouncedValue);
+  }, [debouncedValue]);
+
   return (
     <View style={{...styles.container, ...(style as any)}}>
       <View style={styles.textBackground}>
         <TextInput
+          value={text}
+          onChangeText={setText}
           placeholder="Búscar Pokemon"
           style={styles.textInput}
           autoCapitalize="none"
