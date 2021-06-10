@@ -25,11 +25,21 @@ export const SearchScreen = ({navigation}: Props) => {
       return setPokemonFiltred([]);
     }
 
-    setPokemonFiltred(
-      simplePokemonList.filter(pokemon =>
-        pokemon.name.toLocaleLowerCase().includes(term.toLowerCase()),
-      ),
-    );
+    if (isNaN(Number(term))) {
+      setPokemonFiltred(
+        simplePokemonList.filter(pokemon =>
+          pokemon.name.toLocaleLowerCase().includes(term.toLowerCase()),
+        ),
+      );
+    } else {
+      const pokemonById = simplePokemonList.find(
+        pokemon => pokemon.id === term,
+      );
+      setPokemonFiltred(
+        //Envuelvo en llaves para retornar un array
+        pokemonById ? [pokemonById] : [],
+      );
+    }
   }, [term]);
 
   if (isFetching) {
