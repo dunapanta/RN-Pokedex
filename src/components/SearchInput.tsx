@@ -21,6 +21,8 @@ export const SearchInput = () => {
 const styles = StyleSheet.create({
   container: {
     //backgroundColor: 'blue',
+    marginBottom: 20,
+    marginHorizontal: 14,
   },
   textBackground: {
     backgroundColor: '#f3f1f3',
