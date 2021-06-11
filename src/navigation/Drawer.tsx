@@ -8,11 +8,30 @@ import {
 } from '@react-navigation/drawer';
 import {HomeScreen} from '../screens/HomeScreen';
 import {SearchScreen} from '../screens/SearchScreen';
-import {Navigator} from './Navigator';
+import {Navigator, RootStackParms} from './Navigator';
 import {StyleSheet, Text, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {createStackNavigator} from '@react-navigation/stack';
+import {PokemonScreen} from '../screens/PokemonScreen';
 const Drawer = createDrawerNavigator();
+
+const Search = createStackNavigator<RootStackParms>();
+
+export const SearchNavigator = () => {
+  return (
+    <Search.Navigator
+      screenOptions={{
+        headerShown: false,
+        cardStyle: {
+          backgroundColor: 'white',
+        },
+      }}>
+      <Search.Screen name="HomeScreen" component={SearchScreen} />
+      <Search.Screen name="PokemonScreen" component={PokemonScreen} />
+    </Search.Navigator>
+  );
+};
 
 const DrawerNavigator = () => {
   return (
@@ -24,7 +43,7 @@ const DrawerNavigator = () => {
       }}
       drawerPosition="right">
       <Drawer.Screen name="Home" component={Navigator} />
-      <Drawer.Screen name="SearchScreen" component={SearchScreen} />
+      <Drawer.Screen name="SearchScreen" component={SearchNavigator} />
     </Drawer.Navigator>
   );
 };

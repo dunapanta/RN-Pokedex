@@ -35,7 +35,7 @@ export const PokemonScreen = ({navigation, route}: Props) => {
         <View style={{...styles.backButton, top: top + 10}}>
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => navigation.goBack()}>
+            onPress={() => navigation.pop()}>
             <Icon
               name="arrow-back-outline"
               color="white"
