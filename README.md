@@ -25,4 +25,4 @@
 - Ejecuta `cd RN-Pokedex`
 - Ejecuta `yarn install`
 - Si lo ejecutas para iOS `npx pod-install && npx react-native run-ios`
-- Si utilizas para Android `npx react-native run-android`
+- Si lo ejecutas para Android `npx react-native run-android`
