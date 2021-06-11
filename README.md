@@ -2,7 +2,7 @@
 
 ## Descripción
 
-> ### Aplicación realizada con React Native consiste una aplicación tipo Pokedex
+> ### Aplicación realizada con React Native consiste en una aplicación tipo Pokedex
 
 ## Gif
 
